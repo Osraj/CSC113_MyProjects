@@ -3,7 +3,11 @@ public class Student {
     public int id;
     public double gpa;
 
-    public Student(){}
+    public Student(){
+        name = "No_Name";
+        id = 0;
+        gpa = 0.0;
+    }
 
     public Student(String n, int id, double gpa){
         name = n;
@@ -11,7 +15,7 @@ public class Student {
         this.gpa = gpa;
     }
 
-    private void dispaly(){
+    public void dispaly(){
         System.out.println("Student Name: " + name);
         System.out.println("Student ID: " + id);
         System.out.println("Student GPA: " + gpa);
