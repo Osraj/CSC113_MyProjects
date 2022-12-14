@@ -1,3 +1,4 @@
+// [KSU]_[CSC 113]_Lab03_Osamah Sarraj, 443101217
 public class Main {
     public static void main(String[] args) {
         Channel c1 = new Channel("KSU", 10);
