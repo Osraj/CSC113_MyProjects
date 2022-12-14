@@ -23,10 +23,12 @@ public class Channel {
     public boolean addPlaylist(Playlist p){
         int index = searchIndex(p);
 
-        if(index!=-1 || numPlay>=playlists.length)
+        if(numPlay==playlists.length || index!=-1) {
+            System.out.println("This Playlist is Full");
             return false;
+        }
 
-        playlists[numPlay++] = p;
+        playlists[numPlay++] = new Playlist(p);
         return true;
     }
 

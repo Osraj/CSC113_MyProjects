@@ -6,6 +6,8 @@ public class Playlist {
     private Video[] videos;
     private int numVid;
 
+    private int size;
+
     public Playlist(){
         name = "NoName";
         videos = new Video[0];
@@ -14,6 +16,7 @@ public class Playlist {
     public Playlist(String name, boolean shared, int size){
         this.name = name;
         this.shared = shared;
+        this.size = size;
         videos = new Video[size];
         numVid = 0;
 
@@ -21,6 +24,17 @@ public class Playlist {
             videos[i] = null;
         }
     }//Playlist
+
+    // We need this to make the relation between Playlist and Channel Composition
+    public Playlist(Playlist p){
+        name = p.name;
+        shared = p.shared;
+        videos = new Video[p.size];
+
+        for(int i=0; i<p.numVid; i++){
+            addVideo(p.videos[i]);
+        }
+    }//Playlist()
 
 
     // Adding the method search to make it easier for myself to run the code
