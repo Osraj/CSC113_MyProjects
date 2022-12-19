@@ -13,4 +13,9 @@ public class EBook extends WrittenBook{
     public PrintedBook print(){
         return ( new PrintedBook(title, author, getnPages()) );
     }
+
+    @Override
+    public String toString(){
+        return (super.toString() + ", Ebook, size: " + size);
+    }
 }

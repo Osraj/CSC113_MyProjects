@@ -20,7 +20,12 @@ public class PrintedBook extends WrittenBook{
 
     public String getCoverType(){
         if (hardcover)
-            return "This book is hard-cover";
-        return "This book is NOT hard-cover";
+            return "Hardcover";
+        return "Paperback";
+    }
+
+    @Override
+    public String toString(){
+        return (super.toString() + ", Printed, ISBN: " + ISBN + ", " + getCoverType());
     }
 }

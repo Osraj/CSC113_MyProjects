@@ -9,4 +9,9 @@ public class WrittenBook extends Book{
     public int getnPages(){
         return nPages;
     }
+
+    @Override
+    public String toString(){
+        return (super.toString() + ", Format: Written, number of pages: " + nPages);
+    }
 }

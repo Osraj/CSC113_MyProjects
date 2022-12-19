@@ -16,4 +16,9 @@ public class AudioBook extends Book {
         return narrator;
     }
 
+    @Override
+    public String toString(){
+        return (super.toString() + ", Format: Audio, Duration: " + duration + ", Narrator: " + narrator);
+    }
+
 }
