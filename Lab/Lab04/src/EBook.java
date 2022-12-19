@@ -16,6 +16,6 @@ public class EBook extends WrittenBook{
 
     @Override
     public String toString(){
-        return (super.toString() + ", Ebook, size: " + size);
+        return (super.toString() + ", Ebook, size: " + size + "MB");
     }
 }
