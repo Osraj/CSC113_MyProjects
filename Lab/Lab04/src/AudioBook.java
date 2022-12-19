@@ -3,8 +3,7 @@ public class AudioBook extends Book {
     private String narrator;
 
     public AudioBook(String title, String author, int duration, String narrator){
-        this.title = title;
-        this.author = author;
+        super(title, author);
         this.duration = duration;
         this.narrator = narrator;
     }
