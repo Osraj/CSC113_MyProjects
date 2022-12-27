@@ -1,3 +1,5 @@
+// Name: Osamah Solaiman Sarraj, ID: 44301217
+
 public class Graduate extends Student {
     private int researchHours;
 

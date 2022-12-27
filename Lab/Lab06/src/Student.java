@@ -1,3 +1,5 @@
+// Name: Osamah Solaiman Sarraj, ID: 44301217
+
 public abstract class Student {
     private int id;
     private String name;

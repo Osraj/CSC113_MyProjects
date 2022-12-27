@@ -1,3 +1,5 @@
+// Name: Osamah Solaiman Sarraj, ID: 44301217
+
 public class University {
     private String name;
     private Student[] students;

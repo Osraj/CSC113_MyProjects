@@ -1,3 +1,5 @@
+// Name: Osamah Solaiman Sarraj, ID: 44301217
+
 public class UnderGrad extends Student {
     public UnderGrad(int id, String name, int size) {
         super(id, name, size);
