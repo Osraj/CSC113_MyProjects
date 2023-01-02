@@ -19,7 +19,17 @@ public class ArrayRecursor {
         return 1 + fill(arr, start+1);
     }
 
-//    public static int count(int[] arr, int start){}
+    public static int count(int[] arr, int start){
+        if (start == arr.length)
+            return 0;
+
+        if(arr[start] == -1)
+            return 0;
+
+        return 1 + count(arr, start+1);
+    }
+
+
 //    public static int sum(int[] arr, int start){}
 //    public static void printArray(int[] arr, int start){}
 //    public static void printReverse(int[] arr, int start){}
