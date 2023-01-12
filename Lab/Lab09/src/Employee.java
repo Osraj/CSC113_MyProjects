@@ -1,4 +1,5 @@
 // Osamah Sarraj, 443101217, Lab09
+
 public abstract class Employee {
     private String name;
     private int id;

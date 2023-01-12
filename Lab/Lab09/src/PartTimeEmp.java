@@ -1,3 +1,5 @@
+// Osamah Sarraj, 443101217, Lab09
+
 public class PartTimeEmp extends Employee {
     private int nbWorkHours;
     private int rate;
@@ -17,7 +19,7 @@ public class PartTimeEmp extends Employee {
     @Override
     public void display(){
         super.display();
-        System.out.print(", Work Hours= " + nbWorkHours + ", Rate= " + rate + "\n");
+        System.out.println(", Work Hours= " + nbWorkHours + ", Rate= " + rate);
     }
 
     @Override
