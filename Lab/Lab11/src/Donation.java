@@ -24,7 +24,9 @@ public class Donation implements Serializable{
         return location;
     }
 
-    public double getAmount(){
+    public double getAmount() throws Exception{
+        if(amount < 0)
+            throw new Exception("Amount cannot be negative");
         return amount;
     }
 
