@@ -1,4 +1,5 @@
-public class Donation {
+import java.io.Serializable;
+public class Donation implements Serializable{
     private double amount;
     private String location;
     private String donorName;
@@ -7,6 +8,12 @@ public class Donation {
         this.amount = amount;
         this.location = location;
         this.donorName = donorName;
+    }
+
+    public Donation(Donation d){
+        amount = d.amount;
+        location = d.location;
+        donorName = d.donorName;
     }
 
     public String getDonorName(){
