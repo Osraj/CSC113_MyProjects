@@ -15,4 +15,9 @@ public class Check extends Donation implements Serializable{
     public String getBankName(){
         return bankName;
     }
+
+    public void display(){
+        super.display();
+        System.out.println("Bank Name: " + bankName);
+    }
 }
