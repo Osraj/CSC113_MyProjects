@@ -1,4 +1,5 @@
-public class Check extends Donation{
+import java.io.Serializable;
+public class Check extends Donation implements Serializable{
     private String bankName;
 
     public Check(double amount, String location, String donorName, String bankName){
