@@ -13,6 +13,10 @@ public class Donation {
         return donorName;
     }
 
+    public String getLocation(){
+        return location;
+    }
+
     public double getAmount(){
         return amount;
     }
