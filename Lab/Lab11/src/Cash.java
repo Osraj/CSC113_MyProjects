@@ -6,6 +6,11 @@ public class Cash extends Donation {
         this.currency = currency;
     }
 
+    public Cash(Cash c){
+        super(c.getAmount(), c.getLocation(), c.getDonorName());
+        this.currency = c.currency;
+    }
+
     public String getCurrency(){
         return currency;
     }

@@ -6,6 +6,11 @@ public class Check extends Donation{
         this.bankName = bankName;
     }
 
+    public Check(Check c){
+        super(c.getAmount(), c.getLocation(), c.getDonorName());
+        this.bankName = c.bankName;
+    }
+
     public String getBankName(){
         return bankName;
     }
