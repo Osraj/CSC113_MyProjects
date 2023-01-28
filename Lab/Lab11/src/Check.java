@@ -7,9 +7,9 @@ public class Check extends Donation implements Serializable{
         this.bankName = bankName;
     }
 
-    public Check(Check c){
-        super(c.getAmount(), c.getLocation(), c.getDonorName());
-        this.bankName = c.bankName;
+    public Check(Check chk){
+        super(chk);
+        this.bankName = chk.bankName;
     }
 
     public String getBankName(){

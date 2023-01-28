@@ -7,9 +7,9 @@ public class Cash extends Donation implements Serializable{
         this.currency = currency;
     }
 
-    public Cash(Cash c){
-        super(c.getAmount(), c.getLocation(), c.getDonorName());
-        this.currency = c.currency;
+    public Cash(Cash csh){
+        super(csh);
+        this.currency = csh.currency;
     }
 
     public String getCurrency(){
