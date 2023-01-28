@@ -1,10 +1,19 @@
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class Section {
 
-    public String courseName;
-    public Student[] list;
-    public int size;
-    public int nb;
-     
+    private String courseName;
+    private Student[] list;
+    private int size;
+    private int nb;
+
     public Section(String n, int s) {
         courseName = n;
         size = s;
@@ -26,26 +35,29 @@ public class Section {
     }
 
     public boolean isFull() {
-        return nb == size;
+        return getNb() == getSize();
     }
 
     public boolean isEmpty() {
-        return nb == 0;
+        return getNb() == 0;
     }
 
     public boolean addStudentComp(Student s) {
         if (isFull()) {
-            System.out.println("Section is Full");
-            return false;
+            throw new ArrayIndexOutOfBoundsException("CANT ADD:" + s.name);
+
+            // System.out.println("Section is Full");
+            //return false;
         } else {
-             if(s instanceof MedicalStudent)
-                 list[nb] = new MedicalStudent((MedicalStudent) s);
-             else if (s instanceof ScienceStudent )
-                 list[nb] = new ScienceStudent((ScienceStudent) s);
-                
-             else
-                 list[nb] = new Student(s);
-            nb++;
+            if (s instanceof MedicalStudent) {
+                getList()[getNb()] = new MedicalStudent((MedicalStudent) s);
+            } else if (s instanceof ScienceStudent) {
+                getList()[getNb()] = new ScienceStudent((ScienceStudent) s);
+            }
+
+            //else
+            //  list[nb] = new Student(s);
+            setNb(getNb() + 1);
             return true;
 
         }
@@ -57,8 +69,8 @@ public class Section {
             System.out.println("Section is Full");
             return false;
         } else {
-            list[nb] = s;
-            nb++;
+            getList()[getNb()] = s;
+            setNb(getNb() + 1);
             return true;
 
         }
@@ -67,8 +79,8 @@ public class Section {
 
     public int search(int id) {
         int index = -1;
-        for (int i = 0; i < nb; i++) {
-            if (list[i].id == id) {
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i].id == id) {
                 index = i;
             }
         }
@@ -81,8 +93,8 @@ public class Section {
         if (index == -1) {
             System.out.println("Student is not found!");
         } else {
-            list[index] = list[nb - 1];
-            nb--;
+            getList()[index] = getList()[getNb() - 1];
+            setNb(getNb() - 1);
 
         }
     }
@@ -90,8 +102,8 @@ public class Section {
     public int countMoreThan(double g) {
 
         int count = 0;
-        for (int i = 0; i < nb; i++) {
-            if (list[i].gpa > g) {
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i].gpa > g) {
                 count++;
             }
         }
@@ -99,28 +111,239 @@ public class Section {
 
     }
 
-    public Student maxStudent() {
-        Student max = list[0];
-        for (int i = 1; i < nb; i++) {
-            if (list[i].gpa > max.gpa) {
-                max = list[i];
-            }
-
+    public void display() {
+        System.out.println("Section name:" + getCourseName());
+        System.out.println("Size: " + getSize());
+        System.out.println("nb: " + getNb());
+        System.out.println("Students info: ");
+        for (int i = 0; i < getNb(); i++) {
+            getList()[i].display();
         }
-
-        return max;
 
     }
 
-    public void display() {
-        System.out.println("Section name:" + courseName);
-        System.out.println("Size: " + size);
-        System.out.println("nb: " + nb);
-        System.out.println("Students info: ");
-        for (int i = 0; i < nb; i++) {
-            list[i].dispaly();
+    public void displayReverse() {
+        for (int i = getNb() - 1; i >= 0; i--) {
+            getList()[i].display();
+        };
+
+    }
+
+    public Student SecondMax() {
+        Student max = maxStudent();
+
+        Student secondMax = new MedicalStudent("", -1, -1, -1);
+
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i].gpa > secondMax.gpa && getList()[i].gpa != max.gpa) {
+                secondMax = getList()[i];
+            }
+        }
+        return null;
+
+    }
+
+    public double avgSection() {
+        double sum = 0;
+        for (int i = 0; i < getNb(); i++) {
+            sum += getList()[i].gpa;
+        }
+        return sum / getNb();
+    }
+
+    public double avgMed() {
+        double sum = 0;
+        int count = 0;
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i] instanceof MedicalStudent) {
+                sum += getList()[i].gpa;
+                count++;
+            }
+        }
+        return sum / count;
+
+    }
+
+    public Student maxStudent() {
+        Student max = getList()[0];
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i].gpa > max.gpa) {
+                max = getList()[i];
+            }
         }
 
+        return max;
+    }
+
+    public MedicalStudent maxMedWithGPA() {
+        MedicalStudent max = new MedicalStudent("NoName", -1, -1, -1);
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i] instanceof MedicalStudent) {
+                if (getList()[i].gpa > max.gpa) {
+                    max = (MedicalStudent) getList()[i];
+                }
+            }
+        }
+        return max;
+    }
+
+    public MedicalStudent maxMedWithLab() {
+
+        MedicalStudent max = null;
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i] instanceof MedicalStudent) {
+                MedicalStudent temp = (MedicalStudent) getList()[i];
+                if (max == null || temp.labHours > max.labHours) {
+                    max = (MedicalStudent) getList()[i];
+                }
+            }
+        }
+        return max;
+    }
+
+    public int countMedicalGrad() {
+        int count = 0;
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i] instanceof MedicalStudent) {
+                if (getList()[i].canGraduate()) {
+                    count++;
+                }
+            }
+
+        }
+        return count;
+    }
+
+    public void SplitAbove(Student a[], Student b[], double target) {
+
+    }
+
+    public void SplitByMajor(MedicalStudent a[], ScienceStudent b[]) {
+        int countM = 0;
+        int countS = 0;
+        for (int i = 0; i < getNb(); i++) {
+            if (getList()[i] instanceof MedicalStudent) {
+                a[countM++] = (MedicalStudent) getList()[i];
+            } else {
+                b[countS++] = (ScienceStudent) getList()[i];
+            }
+
+        }
+    }
+
+    public boolean isLarger(Section s) {
+        if (this.getNb() > s.getNb()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public Student maxBetween(Section s) {
+        Student m1 = this.maxStudent();
+        Student m2 = s.maxStudent();
+        if (m1.gpa > m2.gpa) {
+            return m1;
+        } else {
+            return m2;
+        }
+    }
+
+    public void writeToFile(String path, double targetGPA) throws FileNotFoundException, IOException {
+        File f = new File(path);
+        FileOutputStream fos = new FileOutputStream(f);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+       for(int i=0; i < getNb(); i++)
+           if(getList()[i].gpa >targetGPA )
+               oos.writeObject(getList()[i]);
+        
+        // oos.writeObject(list);
+        oos.close();
+        fos.close();
+        
+        
+    }
+    
+    public void readFromFile(String path) throws FileNotFoundException, IOException, ClassNotFoundException {
+        File f = new File(path);
+        FileInputStream fis= new FileInputStream(f);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        try{
+            while(true){
+            Student s = (Student) ois.readObject();
+            if(s instanceof MedicalStudent){
+                if(((MedicalStudent) s).labHours > 10)
+                    addStudentComp(s);
+                }
+            }
+        } catch(EOFException e){
+            System.out.println("EOF. Reading is DONE!");
+        } catch (IOException e) {
+            System.out.println("IO Exception");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class Not Found");
+        } catch (Exception e) {
+            System.out.println("Exception");
+        } finally {
+            ois.close();
+            fis.close();
+        }
+    }
+
+    /**
+     * @return the courseName
+     */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /**
+     * @param courseName the courseName to set
+     */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /**
+     * @return the list
+     */
+    public Student[] getList() {
+        return list;
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(Student[] list) {
+        this.list = list;
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * @param size the size to set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * @return the nb
+     */
+    public int getNb() {
+        return nb;
+    }
+
+    /**
+     * @param nb the nb to set
+     */
+    public void setNb(int nb) {
+        this.nb = nb;
     }
 
 }

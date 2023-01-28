@@ -3,7 +3,8 @@ public class Department {
     public String depName;
     public Section sections[];
     public int nbSections;
-
+ 
+    
     public Department(String n) {
         depName = n;
         sections = new Section[50];
