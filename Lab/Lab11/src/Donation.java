@@ -1,3 +1,5 @@
+// Osamah Sarraj, 443101217, Lab11
+
 import java.io.Serializable;
 public class Donation implements Serializable{
     private double amount;

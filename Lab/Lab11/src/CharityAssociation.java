@@ -1,3 +1,5 @@
+// Osamah Sarraj, 443101217, Lab11
+
 import java.io.*;
 public class CharityAssociation implements IOInterface {
     private String name;
