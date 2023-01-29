@@ -1,3 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -7,18 +14,15 @@ public class Main {
         s3 = new ScienceStudent("C", 5, 5, 5);
         s4 = new MedicalStudent("D", 2, 2, 2);
         s5 = new MedicalStudent("E", 1, 1, 1);
-      
-        
-        LinkedList l = new LinkedList();
-       l.addAtFirst(s1);
-       Student s = l.removeAtFirst();
-         System.out.println("   ------------------ ");
 
-        l.display();
-        
-        
-        
-        
+        LinkedList l = new LinkedList();
+        l.addAtEnd(s1);
+         l.addAtEnd(s2);
+        l.addAtEnd(s3);
+        l.addAtEnd(s4);
+        l.addAtEnd(s5);
+        printList(l, l.head);
+         
         
         
         
@@ -44,10 +48,8 @@ public class Main {
        }
        
         
-        */
-        
-        
-        /*String path = "C:\\Users\\Admin\\Desktop\\java\\data";
+         */
+ /*String path = "C:\\Users\\Admin\\Desktop\\java\\data";
        File f = new File(path);
         Section sec  = new Section("CSC", 3);
         System.out.println("End");
@@ -70,5 +72,27 @@ public class Main {
         }
          */
     }
+    public static void printArr(int a[], int start) {
+        if (start == a.length) {
+            return;
+        } else {
+            System.out.println(a[start]);
+            printArr(a, start + 1);
 
+        }
+
+    }
+    
+    public static void printList(LinkedList l, Node head) {
+        if (head == null) {
+            return;
+        } else {  printList(l, head.next);
+            System.out.println(head.data.name);
+          
+
+        }
+
+    }
+        
+        
 }

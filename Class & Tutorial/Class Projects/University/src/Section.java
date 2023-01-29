@@ -4,8 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Section {
 
@@ -268,26 +271,20 @@ public class Section {
         File f = new File(path);
         FileInputStream fis= new FileInputStream(f);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        try{
-            while(true){
-            Student s = (Student) ois.readObject();
-            if(s instanceof MedicalStudent){
-                if(((MedicalStudent) s).labHours > 10)
-                    addStudentComp(s);
-                }
-            }
-        } catch(EOFException e){
-            System.out.println("EOF. Reading is DONE!");
-        } catch (IOException e) {
-            System.out.println("IO Exception");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class Not Found");
-        } catch (Exception e) {
-            System.out.println("Exception");
-        } finally {
-            ois.close();
-            fis.close();
-        }
+      try{
+        while(true){
+        Student s = (Student) ois.readObject();
+            s.display();
+            addStudentComp(s);
+      }
+      }
+      catch(EOFException e){
+          System.out.println("EOF. Reading is DONE!");
+      }
+        ois.close();
+        fis.close();
+        
+        
     }
 
     /**
